@@ -1,0 +1,216 @@
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<script>
+
+alert("You will now take a pop quiz. Begin!");
+
+class quiz {
+  
+    constructor(questions) { // I think questionuestions will be an array of questionuestion objects...
+    this.questions = questions;
+    this.title = "Texas State Knowledge QUiz";
+    
+    document.write("<h1" + this.title + "</h1>");
+    this.drawEmptyPanels();
+    
+    } // constructor
+    
+    listQuestionsWithAnswers(){
+      
+      document.write('This is a multiple choice quiz. Each question is worth 20 points!');
+      for (var question of this.question + "</br>");
+        document.write(question.question + "</br>");
+        
+      let answerCounter = question.answers.length;
+      while (answerCounter-- ){
+        document.write(question.getAnswersByNumber(answerCounter).text + "<br />");
+      }
+    }
+    
+} // questionuiz
+
+
+
+class Question{
+
+    constructor (ask, questionNumber) {
+        
+        this.ask = ask; //q
+        this.answers = [];
+        this.questionNumber = questionNumber;
+    }
+    addAnswer(text, isCorrect){ // i.r    this is whether or not the answer is right or wrong
+        this.answers.push([text, isCorrect]);
+        this.shuffle();
+    }
+   
+   addIncorrectAnswer(answer) {
+       this.answers.push([answer, false]);
+       this.shuffle();
+   }
+   
+   addCorrectAnswer(answer) {
+       this.answers.push([answer, true]);
+       this.shuffle();
+   }
+   
+   addAnswerArray(answerArray){ // adding all ansers at once     
+
+       for (let answer of answerArray) {
+           this.answers.push([answer[0], answer[1], answer[2], answer[3], answer[4] ]);
+           }
+           this.shuffle();
+   }
+   
+   getAnswersByNumber (num) {
+     return {
+       text: this.answers[num][0],
+       isCorrect: this.answers[num][1]
+     };
+   }
+   
+   shuffle() {
+       function shuffle(array) {
+           for (var i = array.length - 1; i>0; i--) {
+               var j = Math.floor(Math.random() * (i +1));
+               var temp= array [i];
+               array[i]= array[j];
+               array[j]= temp;
+           }
+           return array;
+       }
+       this.answer = shuffle(this.answers);
+   }
+   
+   check(userAnswer) { // did they get it right?
+       var isCorrect = false;
+       for( let answer of this.answers) {
+           if 
+          (  // two conditionals must be met
+           (userAnswer == answer [0]) // users answer must = one of our answer choices
+        && (answer[1] == true) // and this must be correct answer choice   
+        ) isCorrect = true;
+       }
+       return isCorrect; 
+   } 
+   
+   
+   
+   
+   
+  
+   
+   draw() {
+       document.write("<br/>"+this.ask+"<br/>");    
+
+       let answerCounter = 0;
+       for( let answer of this.answers){ // was  onClick = alert("clicked")
+           document.write('<input class="quiz-answers" id="'+ answerCounter +'" type="radio" name="'+ this.questionNumber +'">'+ answer[0] +"<br/>");
+           answerCounter++;
+       }
+    } // end draw()
+       
+       /*
+       function checkQuestion(){
+         var isItRight = document.getElementById(answerCounter);
+         if (isItRight.check == true){
+           alert("correct!");
+         } else alert("incorrect!");
+       } */
+       /*function checkQuestion(){
+         var correctAnswer = document.getElementById();
+         if (correctAnswer.check== true){
+           alert("correct!");
+         }
+       }*/
+        
+       // Todo:
+       // (Done) Need event that triggers when they click any radio button
+       // (Done) That event needs to read the id of the radio button, so we know what they clicked.
+       // Send the answer (from the id) to the "check" method. 
+   
+}   // END  OF  question  CLASS
+   
+
+var questions = [];
+
+
+
+
+questions[0] = new Question("What is the state capitol of Texas? ", 1);
+questions[0].addCorrectAnswer("Austin");
+questions[0].addIncorrectAnswer("Amarillo");
+questions[0].addIncorrectAnswer("Houston");
+questions[0].addIncorrectAnswer("Dallas");
+questions[0].draw();
+questions[0].check(1);
+
+
+
+questions[1] = new Question("What is the state tree of Texas?", 2);
+questions[1].addCorrectAnswer("Pecan");
+questions[1].addIncorrectAnswer("Oak");
+questions[1].addIncorrectAnswer("Fern");
+questions[1].addIncorrectAnswer("Magnolia");
+questions[1].draw();
+questions[1].check(1);
+
+
+questions[2] = new Question("What is the state flower of Texas?", 3);
+questions[2].addCorrectAnswer("Bluebonnet");
+questions[2].addIncorrectAnswer("Yellow Rose");
+questions[2].addIncorrectAnswer("Poppy");
+questions[2].addIncorrectAnswer("Magnolia");
+questions[2].draw();
+questions[2].check(1);
+
+
+questions[3] = new Question("What is the state bird of Texas?", 4);
+questions[3].addCorrectAnswer("Mockingbird");
+questions[3].addIncorrectAnswer("Bluejay");
+questions[3].addIncorrectAnswer("Cardinal");
+questions[3].addIncorrectAnswer("Meadowlark");
+questions[3].draw();
+questions[3].check(1);
+
+
+questions[4] = new Question("What is the state name meaning of Texas?", 5);
+questions[4].addCorrectAnswer("Friend");
+questions[4].addIncorrectAnswer("Great Land");
+questions[4].addIncorrectAnswer("Allies");
+questions[4].addIncorrectAnswer("Land of Tomorrow");
+questions[4].draw();
+questions[4].check(1);
+
+
+$(function(){ // Document is ready for jQuery code... 
+    $(".quiz-answers").click(function(){
+        var answerId = $(this).attr('id');
+        var questionId = $(this).attr('name');
+        
+        questions[questionId].check( );
+        
+      alert("You clicked answer..."+ answerId +" on question #"+ questionId);
+    });
+});
+      
+
+</script>
+
+
+<!--"1. What is the state capitol of Texas?
+-a --- Austin
+"2. What is the state tree of Texas?",
+-a----- Pecan
+"3. What is  the state flower of Texas?",
+-a----- Bluebonnet
+"4. What is the state bird of Texas?",
+-a ------ Mockingbird
+"5. What is the state name meaning of Texas?"
+-a -----Friend      -->
+
+
+</html>
