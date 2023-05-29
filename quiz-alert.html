@@ -113,7 +113,7 @@ class Question{
        }
     } // end draw()
        
-       
+       /*
        function checkQuestion(){
          var isItRight = document.getElementById(answerCounter);
          if (isItRight.check == true){
@@ -126,7 +126,7 @@ class Question{
            alert("correct!");
          }
        }
-        
+        */
        // Todo:
        // (Done) Need event that triggers when they click any radio button
        // (Done) That event needs to read the id of the radio button, so we know what they clicked.
@@ -193,7 +193,7 @@ $(function(){ // Document is ready for jQuery code...
         
         questions[questionId].check( );
         
-      alert("Your answer is..."+ checkQuestion() ); //+" on question #"+ questionId
+      alert("You clicked answer..."+ answerId +" on question #"+ questionId);
     });
 });
       
